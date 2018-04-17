@@ -106,7 +106,7 @@ void loop() {
                     one_breath();
                     break;
                 case MODE_RANDOM:
-                    run_random();
+                    run_random(curr_cycle);
                     break;
                 case MODE_CYLON:
                     run_cylon();
@@ -263,7 +263,7 @@ void one_breath() {
     delay(500);
 }
 
-void run_random() {
+void run_random(int cycleno) {
     int rnd_color_r = random(0, 255);
     int rnd_color_g = random(0, 255);
     int rnd_color_b = random(0, 255);
@@ -272,7 +272,10 @@ void run_random() {
     
     b.ledOn(rnd_light, rnd_color_r, rnd_color_g, rnd_color_b);
     delay(rnd_delay);
-    b.ledOff(rnd_light);   
+
+    if (cycleno % 100 == 0) {
+        b.allLedsOff();
+    }    
 }
 
 void run_flash() {
